@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
     <title>Scatter Plot</title>
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
@@ -40,7 +41,10 @@
                     .enter().append("circle")
                     .attr("cx", d => x(d.AverageCityMPG))
                     .attr("cy", d => y(d.AverageHighwayMPG))
-                    .attr("r", d => 2 + +d.EngineCylinders);
+                    .attr("r", d => 2 + +d.EngineCylinders)
+                    .style("fill", "none") // No fill color for the circles
+                    .style("stroke", "blue") // Blue outline for the circles
+                    .style("stroke-width", "2px"); // Set the thickness of the circle borders
 
                 d3.select("svg").append("g")
                     .attr("transform", "translate(50,50)")
@@ -55,7 +59,6 @@
             }
         }
 
-        
         drawChart();
     </script>
 </body>

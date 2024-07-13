@@ -1,39 +1,55 @@
-const data = await d3.csv("https://flunky.github.io/cars2017.csv");
-        
-        const svg = d3.select("svg")
-          .append("g")
-          .attr("transform", "translate(50,50)");
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Scatter Plot</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <svg width="300" height="300"></svg>
+    <script>
+        async function drawChart() {
+            const data = await d3.csv("https://flunky.github.io/cars2017.csv");
+            
+            const svg = d3.select("svg")
+                .append("g")
+                .attr("transform", "translate(50,50)");
 
-        const width = 200;
-        const height = 200;
-        
-        const x = d3.scaleLog()
-          .domain([10, 150])
-          .range([0, width]);
-          
-        const y = d3.scaleLog()
-          .domain([10, 150])
-          .range([height, 0]);
-        
-        const xAxis = d3.axisBottom(x)
-          .tickValues([10, 20, 50, 100])
-          .tickFormat(d3.format("~s"));
-          
-        const yAxis = d3.axisLeft(y)
-          .tickValues([10, 20, 50, 100])
-          .tickFormat(d3.format("~s"));
-        
-        svg.selectAll("circle")
-          .data(data)
-          .enter().append("circle")
-            .attr("cx", d => x(d.AverageCityMPG))
-            .attr("cy", d => y(d.AverageHighwayMPG))
-            .attr("r", d => 2 + +d.EngineCylinders)
+            const width = 200;
+            const height = 200;
+            
+            const x = d3.scaleLog()
+                .domain([10, 150])
+                .range([0, width]);
+                
+            const y = d3.scaleLog()
+                .domain([10, 150])
+                .range([height, 0]);
+            
+            const xAxis = d3.axisBottom(x)
+                .tickValues([10, 20, 50, 100])
+                .tickFormat(d3.format("~s"));
+                
+            const yAxis = d3.axisLeft(y)
+                .tickValues([10, 20, 50, 100])
+                .tickFormat(d3.format("~s"));
+            
+            svg.selectAll("circle")
+                .data(data)
+                .enter().append("circle")
+                .attr("cx", d => x(d.AverageCityMPG))
+                .attr("cy", d => y(d.AverageHighwayMPG))
+                .attr("r", d => 2 + +d.EngineCylinders);
 
-d3.select("svg").append("g")
-.attr("transform", "translate(50,50)")
-.call(yAxis)
+            d3.select("svg").append("g")
+                .attr("transform", "translate(50,50)")
+                .call(yAxis);
 
-d3.select("svg").append("g")
-.attr("transform", "translate(50,250)")
-.call(xAxis)
+            d3.select("svg").append("g")
+                .attr("transform", "translate(50,250)")
+                .call(xAxis);
+        }
+
+        drawChart();
+    </script>
+</body>
+</html>

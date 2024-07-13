@@ -42,9 +42,9 @@
                     .attr("cx", d => x(d.AverageCityMPG))
                     .attr("cy", d => y(d.AverageHighwayMPG))
                     .attr("r", d => 2 + +d.EngineCylinders)
-                    .style("fill", "none") // No fill color for the circles
-                    .style("stroke", "blue") // Blue outline for the circles
-                    .style("stroke-width", "2px"); // Set the thickness of the circle borders
+                    .style("fill", "white") // No fill color for the circles
+                    .style("stroke", "black") // Blue outline for the circles
+                    .style("stroke-width", "1px"); // Set the thickness of the circle borders
 
                 d3.select("svg").append("g")
                     .attr("transform", "translate(50,50)")

@@ -23,12 +23,20 @@
                     .append("g")
                     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-                const x = d3.scaleLog()
+                // const x = d3.scaleLog()
+                //     .domain([10, 150])
+                //     .range([0, width]);
+
+                // const y = d3.scaleLog()
+                //     .domain([10, 150])
+                //     .range([height, 0]);
+
+                const x = d3.scaleLinear()
                     .domain([10, 150])
                     .range([0, width]);
 
-                const y = d3.scaleLog()
-                    .domain([10, 150])
+                const y = d3.scaleLinear()
+                    .domain([0, 12])
                     .range([height, 0]);
 
                 const xAxis = d3.axisBottom(x)

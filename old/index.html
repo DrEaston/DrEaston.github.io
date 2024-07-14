@@ -23,8 +23,8 @@
                     .append("g")
                     .attr("transform", `translate(${margin.left},${margin.top})`);
 
-                const x = d3.scaleLinear()
-                    .domain([0, 12])
+                const x = d3.scaleLog()
+                    .domain([10, 150])
                     .range([0, width]);
 
                 const y = d3.scaleLog()
@@ -65,8 +65,9 @@
                 svg.selectAll("circle")
                     .data(data)
                     .enter().append("circle")
-                    .attr("cx", d => x(+d.EngineCylinders))
+                    .attr("cx", d => x(+d.AverageCityMPG))
                     .attr("cy", d => y(+d.AverageHighwayMPG))
+                    .attr("r", d => 5 + (+d.EngineCylinders * 0.5)) // Adjust radius based on EngineCylinders
                     .style("fill", "white")
                     .style("stroke", "black")
                     .style("stroke-width", "1px");

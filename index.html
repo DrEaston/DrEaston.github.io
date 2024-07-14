@@ -6,68 +6,56 @@
     <script src="https://d3js.org/d3.v7.min.js"></script>
 </head>
 <body>
+    <button onclick="toggleData()">Toggle Data</button>
     <svg width="600" height="500"></svg>
     <script>
+        let currentDataSetting = 0; // 0 for MPG data, 1 for Engine data
+        const margin = { top: 20, right: 20, bottom: 50, left: 70 };
+        const width = 600 - margin.left - margin.right;
+        const height = 500 - margin.top - margin.bottom;
+        const svg = d3.select("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", `translate(${margin.left},${margin.top})`);
+
         async function drawChart() {
             try {
                 const data = await d3.csv("https://flunky.github.io/cars2017.csv");
                 console.log(data); // Log the data to see if it's fetched correctly
 
-                const margin = { top: 20, right: 20, bottom: 50, left: 70 };
-                const width = 600 - margin.left - margin.right;
-                const height = 500 - margin.top - margin.bottom;
-
-                const svg = d3.select("svg")
-                    .attr("width", width + margin.left + margin.right)
-                    .attr("height", height + margin.top + margin.bottom)
-                    .append("g")
-                    .attr("transform", `translate(${margin.left},${margin.top})`);
+                svg.selectAll("*").remove(); // Clear previous SVG content
 
                 const x = d3.scaleLog()
-                    .domain([10, 150])
+                    .domain(currentDataSetting === 0 ? [10, 150] : [1, 12])
                     .range([0, width]);
 
                 const y = d3.scaleLog()
-                    .domain([10, 150])
+                    .domain(currentDataSetting === 0 ? [10, 150] : [0.6, 8])
                     .range([height, 0]);
 
                 const xAxis = d3.axisBottom(x)
-                    .tickValues([10, 20, 50, 100])
                     .tickFormat(d3.format("~s"));
 
                 const yAxis = d3.axisLeft(y)
-                    .tickValues([10, 20, 50, 100])
                     .tickFormat(d3.format("~s"));
 
                 // Append y-axis
                 svg.append("g")
-                    .call(yAxis)
-                    .append("text")
-                    .attr("class", "axis-label")
-                    .attr("y", -margin.left)
-                    .attr("x", -height / 2)
-                    .attr("transform", "rotate(-90)")
-                    .attr("text-anchor", "middle")
-                    .text("Average Highway MPG");
+                    .call(yAxis);
 
                 // Append x-axis
                 svg.append("g")
                     .attr("transform", `translate(0, ${height})`)
-                    .call(xAxis)
-                    .append("text")
-                    .attr("class", "axis-label")
-                    .attr("y", margin.bottom - 10)
-                    .attr("x", width / 2)
-                    .attr("text-anchor", "middle")
-                    .text("Average City MPG");
+                    .call(xAxis);
 
                 // Append circles
                 svg.selectAll("circle")
                     .data(data)
                     .enter().append("circle")
-                    .attr("cx", d => x(d.AverageCityMPG))
-                    .attr("cy", d => y(d.AverageHighwayMPG))
-                    .attr("r", d => 2 + +d.EngineCylinders)
+                    .attr("cx", d => x(currentDataSetting === 0 ? d.AverageCityMPG : d.EngineCylinders))
+                    .attr("cy", d => y(currentDataSetting === 0 ? d.AverageHighwayMPG : d.EngineDisplacement))
+                    .attr("r", 5)
                     .style("fill", "white")
                     .style("stroke", "black")
                     .style("stroke-width", "1px");
@@ -77,7 +65,13 @@
             }
         }
 
+        function toggleData() {
+            currentDataSetting = 1 - currentDataSetting; // Toggle the setting
+            drawChart(); // Redraw the chart
+        }
+
         drawChart();
     </script>
 </body>
 </html>
+

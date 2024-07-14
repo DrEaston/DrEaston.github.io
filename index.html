@@ -66,6 +66,113 @@
                     .data(data)
                     .enter().append("circle")
                     .attr("cx", d => x(+d.AverageCityMPG))
+                    .attr("cy", d => y(+d.EngineCylinders))
+                    .style("fill", "white")
+                    .style("stroke", "black")
+                    .style("stroke-width", "1px");
+
+                // Append circles
+                svg.selectAll("circle")
+                    .data(data)
+                    .enter().append("circle")
+                    .attr("cx", d => x(+d.AverageCityMPG))
+                    .attr("cy", d => y(+d.AverageHighwayMPG))
+                    .style("fill", "white")
+                    .style("stroke", "black")
+                    .style("stroke-width", "1px");
+
+            } catch (error) {
+                console.error("Error fetching or processing data:", error);
+            }
+        }
+
+        drawChart();
+    </script>
+</body>
+</html>
+
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Scatter Plot</title>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+<body>
+    <svg width="600" height="500"></svg>
+    <script>
+        async function drawChart() {
+            try {
+                const data = await d3.csv("https://flunky.github.io/cars2017.csv");
+                console.log(data); // Log the data to see if it's fetched correctly
+
+                const margin = { top: 20, right: 20, bottom: 50, left: 70 };
+                const width = 600 - margin.left - margin.right;
+                const height = 500 - margin.top - margin.bottom;
+
+                const svg = d3.select("svg")
+                    .attr("width", width + margin.left + margin.right)
+                    .attr("height", height + margin.top + margin.bottom)
+                    .append("g")
+                    .attr("transform", `translate(${margin.left},${margin.top})`);
+
+                const x = d3.scaleLog()
+                    .domain([10, 150])
+                    .range([0, width]);
+
+                const y = d3.scaleLog()
+                    .domain([10, 150])
+                    .range([height, 0]);
+
+                const xAxis = d3.axisBottom(x)
+                    .tickValues([10, 20, 50, 100])
+                    .tickFormat(d3.format("~s"));
+
+                const yAxis = d3.axisLeft(y)
+                    .tickValues([10, 20, 50, 100])
+                    .tickFormat(d3.format("~s"));
+
+                // Append y-axis
+                svg.append("g")
+                    .call(yAxis)
+                    .append("text")
+                    .attr("class", "axis-label")
+                    .attr("y", -margin.left)
+                    .attr("x", -height / 2)
+                    .attr("transform", "rotate(-90)")
+                    .attr("text-anchor", "middle")
+                    .text("Average Highway MPG");
+
+                // Append x-axis
+                svg.append("g")
+                    .attr("transform", `translate(0, ${height})`)
+                    .call(xAxis)
+                    .append("text")
+                    .attr("class", "axis-label")
+                    .attr("y", margin.bottom - 10)
+                    .attr("x", width / 2)
+                    .attr("text-anchor", "middle")
+                    .text("Average City MPG");
+
+                // Append circles
+                svg.selectAll("circle")
+                    .data(data)
+                    .enter().append("circle")
+                    .attr("cx", d => x(+d.AverageCityMPG))
+                    .attr("cy", d => y(+d.AverageHighwayMPG))
+                    .attr("r", d => 5 + (+d.EngineCylinders * 0.5)) // Adjust radius based on EngineCylinders
+                    .style("fill", "white")
+                    .style("stroke", "black")
+                    .style("stroke-width", "1px");
+
+                // Append circles
+                svg.selectAll("circle")
+                    .data(data)
+                    .enter().append("circle")
+                    .attr("cx", d => x(+d.AverageCityMPG))
                     .attr("cy", d => y(+d.AverageHighwayMPG))
                     .attr("r", d => 5 + (+d.EngineCylinders * 0.5)) // Adjust radius based on EngineCylinders
                     .style("fill", "white")
@@ -80,4 +187,4 @@
         drawChart();
     </script>
 </body>
-</html>
+</html> -->

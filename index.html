@@ -53,7 +53,7 @@
                 svg.selectAll("circle")
                     .data(data)
                     .enter().append("circle")
-                    .attr("cx", d => x(currentDataSetting === 0 ? d.AverageCityMPG : d.AverageCityMPG))
+                    .attr("cx", d => x(currentDataSetting === 0 ? d.AverageCityMPG : d.EngineCylinders))
                     .attr("cy", d => y(currentDataSetting === 0 ? d.AverageHighwayMPG : d.EngineDisplacement))
                     .attr("r", 5)
                     .style("fill", "white")

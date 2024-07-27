@@ -85,7 +85,7 @@
                     .attr("x", width / 2)
                     .attr("text-anchor", "middle")
                     .style("font-weight", "bold")
-                    .text("Engine Cylinders");
+                    .text("EngineCylinders");
 
                 const xAxis = d3.axisBottom(x).ticks(12);
                 const yAxis = d3.axisLeft(y).ticks(10);
@@ -223,13 +223,6 @@
                     .style("font-size", "24px")
                     .style("font-weight", "bold")
                     .text("Fuel Economy vs Fuel Type");
-
-                // Append annotations
-                svg.append("text")
-                    .attr("x", width / 2)
-                    .attr("y", height + 80)
-                    .attr("text-anchor", "middle")
-                    .text("* Mouse over bars for exact data values");
 
                 const x = d3.scaleBand()
                     .domain(data.map(d => d.Fuel))
@@ -476,13 +469,13 @@
                 .attr("x", width / 2)
                 .attr("y", height + 80)
                 .attr("text-anchor", "middle")
-                .text("* Gas engine circle size is determined by the number of cylinders");
+                .text("* Gas engine circle size is determined by the number of cylinders.");
 
             svg.append("text")
                 .attr("x", width / 2)
                 .attr("y", height + 100)
                 .attr("text-anchor", "middle")
-                .text("* Mouse over data points shows car manufacturer");
+                .text("* Mouse over data points shows car manufacturer.");
 
             // Append legend
             const legend = svg.append("g")

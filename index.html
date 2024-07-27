@@ -32,7 +32,7 @@
     <button onclick="toggleGraph()">NEXT</button>
     <div id="checkboxContainer" style="display: none;"> <!-- Container for checkboxes -->
         <div>
-            <input type="checkbox" id="cityMPG" onchange="updateScene2()">
+            <input type="checkbox" id="cityMPG" checked onchange="updateScene2()">
             <label for="cityMPG">City MPG</label>
         </div>
         <div>
@@ -85,7 +85,7 @@
                     .attr("x", width / 2)
                     .attr("text-anchor", "middle")
                     .style("font-weight", "bold")
-                    .text("EngineCylinders");
+                    .text("Engine Cylinders");
 
                 const xAxis = d3.axisBottom(x).ticks(12);
                 const yAxis = d3.axisLeft(y).ticks(10);
@@ -223,6 +223,13 @@
                     .style("font-size", "24px")
                     .style("font-weight", "bold")
                     .text("Fuel Economy vs Fuel Type");
+
+                // Append annotations
+                svg.append("text")
+                    .attr("x", width / 2)
+                    .attr("y", height + 80)
+                    .attr("text-anchor", "middle")
+                    .text("* Mouse over bars for exact data values");
 
                 const x = d3.scaleBand()
                     .domain(data.map(d => d.Fuel))
@@ -469,13 +476,13 @@
                 .attr("x", width / 2)
                 .attr("y", height + 80)
                 .attr("text-anchor", "middle")
-                .text("* Gas engine circle size is determined by the number of cylinders.");
+                .text("* Gas engine circle size is determined by the number of cylinders");
 
             svg.append("text")
                 .attr("x", width / 2)
                 .attr("y", height + 100)
                 .attr("text-anchor", "middle")
-                .text("* Mouse over data points shows car manufacturer.");
+                .text("* Mouse over data points shows car manufacturer");
 
             // Append legend
             const legend = svg.append("g")

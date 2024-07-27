@@ -85,7 +85,7 @@
                     .attr("x", width / 2)
                     .attr("text-anchor", "middle")
                     .style("font-weight", "bold")
-                    .text("EngineCylinders");
+                    .text("Engine Cylinders");
 
                 const xAxis = d3.axisBottom(x).ticks(12);
                 const yAxis = d3.axisLeft(y).ticks(10);
@@ -223,6 +223,13 @@
                     .style("font-size", "24px")
                     .style("font-weight", "bold")
                     .text("Fuel Economy vs Fuel Type");
+
+                // Append annotations
+                svg.append("text")
+                    .attr("x", width / 2)
+                    .attr("y", height + 80)
+                    .attr("text-anchor", "middle")
+                    .text("* Gas engine circle size is determined by the number of cylinders");
 
                 const x = d3.scaleBand()
                     .domain(data.map(d => d.Fuel))
